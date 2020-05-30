@@ -1,0 +1,14 @@
+[
+    {
+        "name": "New York",
+        "component": "NewYork",
+        "imagePath": "newyork.png",
+        "marginTop": 11.5
+    },
+    {
+        "name": "Sydney",
+        "component": "Sydney",
+        "imagePath": "sydney.png",
+        "marginTop": 14
+    }
+]

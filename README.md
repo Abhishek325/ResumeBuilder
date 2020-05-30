@@ -1,24 +1,5 @@
-# resume-builder
+# Resume Builder
 
-## Project setup
-```
-npm install
-```
+#### An Open-Source resume maker to build your profile!
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+This is a free and open-source resume builder app that allows you to create your resume without asking to create an account, have paid membership and storing data in cloud. It has a simple `vue` powered interface on `material-design` with regularly updated templates and hight customizability.
