@@ -89,7 +89,7 @@ export default {
         case "NewYork":
           return 11.5;
         case "Sydney":
-          return 14;
+          return 5;
       }
       return 0;
     },

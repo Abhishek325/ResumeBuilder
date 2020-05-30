@@ -9,13 +9,17 @@
           class="col m6 s12 valign-wrapper blur hide-on-med-and-down"
           style="background:#dedede;"
         >
-          <component
+          <!-- <component
             :formData="formData"
             scaleX="0.9"
             scaleY="0.23"
-            :is="'NewYork'"
+            :is="resume.resume_template"
             style="max-height: 380%;overflow-y: hidden;"
-          ></component>
+          ></component> -->
+          <img
+            :src="`img/templates/${resume.resume_template.toLowerCase()}.png`"
+            style="width:100%;height:93%;"
+          />
         </div>
         <div class="col m6 s12 valign-wrapper">
           <div class="card-content">
@@ -48,11 +52,7 @@
 </template>
 <script>
 import STORAGE_SERVICE from "../../services/persistence";
-import NewYork from "../templates/NewYork";
 export default {
-  components: {
-    NewYork,
-  },
   computed: {
     auditText() {
       const text = this.resume.updated_at ? "Updated" : "Created";

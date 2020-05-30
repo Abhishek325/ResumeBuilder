@@ -62,6 +62,9 @@
           >
             Save
           </button>
+          <button class="btn waves-effect waves-light" v-print="'#resumeView'">
+            Print
+          </button>
         </div>
         <br />
       </div>
