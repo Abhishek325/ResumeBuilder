@@ -54,8 +54,10 @@ export default {
 }
 .footer {
   background: transparent;
-  bottom: 0.5rem;
-  left: 45%;
+  clear: both;
+  position: relative;
+  height: 50px;
+  margin-top: 3rem;
 }
 .footer > p > i {
   position: relative;

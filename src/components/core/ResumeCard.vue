@@ -40,11 +40,6 @@
                 Duplicate
               </h6>
             </button>
-            <router-link class="link" to="/edit/1"
-              ><h6>
-                <i class="material-icons">file_download</i> Download PDF
-              </h6></router-link
-            >
           </div>
         </div>
       </div>

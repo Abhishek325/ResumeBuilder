@@ -4,7 +4,7 @@
       <img
         class="z-depth-3"
         :class="{ selected: selected == template.component }"
-        :src="`/img/templates/${template.imagePath}`"
+        :src="`img/templates/${template.imagePath}`"
         style="width:100%"
         @click="selectTemplate(template)"
       />
