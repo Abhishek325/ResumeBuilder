@@ -15,9 +15,9 @@ export default {
   methods: {
     addMutliRecord() {
       this.$store.commit("setNewMultiRecord", {
-        type: this.sectionSchema.name.toLowerCase(),
+        sectionSchema: this.sectionSchema,
       });
-      EventBus.$emit("onMultiRecordAdded", this.sectionSchema.name);
+      EventBus.$emit("onMultiRecordAdded", this.sectionSchema.id);
     },
   },
 };

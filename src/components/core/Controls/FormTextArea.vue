@@ -36,8 +36,8 @@ export default {
     };
   },
   mounted() {
-    EventBus.$on("onMultiRecordAdded", (sectionName) => {
-      if (this.sectionSchema.name === sectionName) this.value = "";
+    EventBus.$on("onMultiRecordAdded", (id) => {
+      if (this.sectionSchema.id === id) this.value = "";
     });
   },
 };

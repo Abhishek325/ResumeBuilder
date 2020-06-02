@@ -1,10 +1,7 @@
 <template>
   <div class="col s12">
     <!-- Employment history -->
-    <ul
-      class="collection"
-      v-if="sectionName === 'employment history' && listItems.length > 0"
-    >
+    <ul class="collection" v-if="sectionId === 5 && listItems.length > 0">
       <li
         v-for="(item, index) in listItems"
         :key="index"
@@ -24,16 +21,13 @@
         <!-- Render the edit section -->
         <MultiRecordSection
           :index="index"
-          :sectionName="section.name"
+          :section="section"
           v-if="editIndex === index"
         />
       </li>
     </ul>
     <!-- Education multi records -->
-    <ul
-      class="collection"
-      v-if="sectionName === 'education' && listItems.length > 0"
-    >
+    <ul class="collection" v-if="sectionId === 6 && listItems.length > 0">
       <li
         v-for="(item, index) in listItems"
         :key="index"
@@ -52,20 +46,20 @@
         <!-- Render the edit section -->
         <MultiRecordSection
           :index="index"
-          :sectionName="section.name"
+          :section="section"
           v-if="editIndex === index"
         />
       </li>
     </ul>
     <!-- Skills' multi records -->
-    <div v-if="sectionName === 'skills'">
+    <div v-if="sectionId === 7">
       <br />
       <draggable v-model="listItems" draggable=".item">
         <div
           class="chip item"
           v-for="(item, index) in listItems"
           :key="index"
-          @drag="onDrag(sectionName)"
+          @drag="onDrag()"
         >
           {{ item }}
           <i class="material-icons" @click="removeMultiRecord(section, index)"
@@ -75,14 +69,14 @@
       </draggable>
     </div>
     <!-- Links' multi records -->
-    <div v-if="sectionName === 'website and social links'">
+    <div v-if="sectionId === 8">
       <br />
       <draggable v-model="listItems" draggable=".item">
         <div
           class="chip item"
           v-for="(item, index) in listItems"
           :key="index"
-          @drag="onDrag('links')"
+          @drag="onDrag()"
         >
           <a :href="item.link" target="_blank">
             {{ item.label }}
@@ -112,35 +106,24 @@ export default {
   data() {
     return {
       editIndex: -1,
-      draggedFieldSection: "",
+      draggedFieldSection: {},
     };
   },
   computed: {
     listItems: {
       get: function() {
-        switch (this.section.name.toLowerCase()) {
-          case "employment history":
-            return this.$store.state.employment_history;
-          case "education":
-            return this.$store.state.education;
-          case "website and social links":
-            return this.$store.state.links;
-          case "skills":
-            return this.$store.state.skills;
-          default:
-            return [];
-        }
+        return this.$store.getters.getMultiRecBySecId(this.sectionId);
       },
       set: function(val) {
         this.$store.commit("setListOrder", {
-          type: this.draggedFieldSection,
+          sectionSchema: this.draggedFieldSection,
           value: val, //all values in new order
         });
         this.$emit("remove");
       },
     },
-    sectionName() {
-      return this.section.name.toLowerCase();
+    sectionId() {
+      return this.section.id;
     },
   },
   methods: {
@@ -152,17 +135,27 @@ export default {
         return;
       }
       this.$store.commit("deleteMultiRecord", {
-        type: section.name.toLowerCase(),
+        id: section.id,
         index: index,
       });
       this.$emit("remove");
     },
-    onDrag(sectionName) {
-      this.draggedFieldSection = sectionName;
+    onDrag() {
+      this.draggedFieldSection = this.section;
     },
     onClose() {
       this.editIndex = -1;
       this.$emit("update");
+    },
+  },
+  watch: {
+    listItems: {
+      deep: true,
+      immediate: true,
+      // eslint-disable-next-line no-unused-vars
+      handler(newVal, oldval) {
+        // console.log(newVal, oldval);
+      },
     },
   },
 };

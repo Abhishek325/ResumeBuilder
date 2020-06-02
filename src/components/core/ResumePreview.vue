@@ -74,7 +74,7 @@
   </div>
 </template>
 <script>
-import TemplateList from "./TemplateList";
+import TemplateList from "./Template/TemplateList";
 export default {
   components: {
     TemplateList,
@@ -108,10 +108,14 @@ export default {
     this.$store.subscribe((mutation, state) => {
       if (mutation.type === "setStoreValues") {
         Object.keys(mutation.payload).forEach((key) => {
-          vm.$set(vm.formData, key, mutation.payload[key]);
+          vm.$set(
+            vm.formData,
+            this.getListNamebyId(key),
+            mutation.payload[key]
+          );
           this.template = vm.formData.resume_template;
         });
-        Object.assign(vm.formData, mutation.payload);
+        // Object.assign(vm.formData, mutation.payload);
       } else if (mutation.type === "setFieldValue") {
         vm.$set(vm.formData, mutation.payload.fieldId, mutation.payload.value);
       } else if (
@@ -119,25 +123,11 @@ export default {
         mutation.type === "updateMultiRecord" ||
         mutation.type === "setListOrder"
       ) {
-        switch (mutation.payload.type) {
-          case "employment history":
-            vm.$set(
-              vm.formData,
-              "employment_history",
-              vm.$store.state.employment_history
-            );
-            break;
-          case "education":
-            vm.$set(vm.formData, "education", vm.$store.state.education);
-            break;
-          case "website and social links":
-          case "links":
-            vm.$set(vm.formData, "links", vm.$store.state.links);
-            break;
-          case "skills":
-            vm.$set(vm.formData, "skills", vm.$store.state.skills);
-            break;
-        }
+        vm.$set(
+          vm.formData,
+          this.getListNamebyId(mutation.payload.sectionSchema.id),
+          vm.$store.state.resume[mutation.payload.sectionSchema.id]
+        );
       } else if (mutation.type === "setResumeTemplate") {
         this.$emit("onTemplateUpdate");
       }
@@ -147,6 +137,20 @@ export default {
     onTemplateSelected(templateComponentName) {
       this.template = templateComponentName;
       this.templateView = false;
+    },
+    getListNamebyId(id) {
+      switch (parseInt(id)) {
+        case 5:
+          return "employment_history";
+        case 6:
+          return "education";
+        case 7:
+          return "skills";
+        case 8:
+          return "links";
+        default:
+          return id;
+      }
     },
   },
 };

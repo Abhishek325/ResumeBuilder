@@ -23,6 +23,10 @@
               <p class="title">{{ formData.job_title }}</p>
             </div>
           </div>
+          <div class="col m12 s12 detailed-view" v-if="formData.summary">
+            <h6>Profile</h6>
+            <p class="employment-summary" v-html="formData.summary"></p>
+          </div>
           <div
             class="col m12 s12 detailed-view"
             v-if="
@@ -155,7 +159,7 @@ a {
   text-transform: uppercase;
 }
 .employment-summary {
-  margin-top: -0.75rem !important;
+  margin-top: 0.25rem !important;
   font-size: 12px;
 }
 </style>

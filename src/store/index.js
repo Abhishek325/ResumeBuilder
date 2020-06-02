@@ -5,163 +5,105 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    resume_title: "",
-    resume_template: "",
-    job_title: "",
-    photo_url: "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone: "",
-    dob: "",
-    pd_city: "",
-    summary: "",
-    employment_history: [],
-    education: [],
-    links: [],
-    skills: [],
+    resume: {
+      resume_title: "",
+      resume_template: "",
+      job_title: "",
+      photo_url: "",
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone: "",
+      dob: "",
+      pd_city: "",
+      summary: "",
+    },
   },
   mutations: {
     setFieldValue(state, payload) {
-      state[payload.fieldId] = payload.value;
+      state.resume[payload.fieldId] = payload.value;
     },
     setNewMultiRecord(state, payload) {
-      switch (payload.type) {
-        case "employment history":
-          if (
-            state.employment_history_job_title &&
-            state.employer &&
-            state.start_date &&
-            state.city &&
-            state.employment_summary
-          ) {
-            state.employment_history.push({
-              employment_history_job_title: state.employment_history_job_title,
-              employer: state.employer,
-              start_date: state.start_date,
-              city: state.city,
-              employment_summary: state.employment_summary,
-            });
-            delete state.employment_history_job_title;
-            delete state.employer;
-            delete state.start_date;
-            delete state.city;
-            delete state.employment_summary;
+      // Filter out btn field
+      const fields = payload.sectionSchema.fields
+        .filter((f) => f.id.indexOf("btn") === -1)
+        .map((f) => f.id);
+      let data = [];
+      // Single valued fields e.g. skill:
+      if (fields.length == 1) {
+        // eslint-disable-next-line prettier/prettier
+        data = state.resume[fields[0]]
+          .split(",")
+          .filter((x) => x.trim() !== "");
+        // First value
+        if ((state.resume[payload.sectionSchema.id] || []).length === 0) {
+          Vue.set(state.resume, payload.sectionSchema.id, data);
+        }
+        // Subsequent value
+        else state.resume[payload.sectionSchema.id].push(...data);
+      } else {
+        // Mutli valued fields e.g. Education details:
+        fields.forEach((f) => {
+          if (!state.resume[f]) {
+            return;
           }
-          break;
-        case "education":
-          if (
-            state.school &&
-            state.degree &&
-            state.school_start_date &&
-            state.school_end_date &&
-            state.school_city &&
-            state.education_summary
-          ) {
-            state.education.push({
-              school: state.school,
-              degree: state.degree,
-              school_start_date: state.school_start_date,
-              school_end_date: state.school_end_date,
-              school_city: state.school_city,
-              education_summary: state.education_summary,
-            });
-            delete state.school;
-            delete state.degree;
-            delete state.school_start_date;
-            delete state.school_end_date;
-            delete state.school_city;
-            delete state.education_summary;
-          }
-          break;
-        case "website and social links":
-          if (state.label && state.link) {
-            state.links.push({
-              label: state.label,
-              link: state.link,
-            });
-            delete state.label;
-            delete state.link;
-          }
-          break;
-        case "skills":
-          if (state.skill) {
-            if (state.skill.includes(",")) {
-              state.skill.split(",").forEach((s) => {
-                if (s.trim()) state.skills.push(s.trim());
-              });
-            } else state.skills.push(state.skill);
-            delete state.skill;
-          }
-          break;
+          data[f] = state.resume[f];
+        });
+        // First value
+        if ((state.resume[payload.sectionSchema.id] || []).length === 0)
+          Vue.set(state.resume, payload.sectionSchema.id, [{ ...data }]);
+        // Subsequent value
+        else {
+          let index = state.resume[payload.sectionSchema.id].length;
+          Vue.set(state.resume[payload.sectionSchema.id], index, { ...data });
+        }
+        // state.resume[payload.sectionSchema.id].push({ ...data });
       }
+      // delete unused props, until next time!
+      fields.forEach((f) => {
+        delete state.resume[f];
+      });
     },
     updateMultiRecord(state, payload) {
-      switch (payload.type) {
-        case "employment history":
-          state.employment_history[payload.index][payload.fieldId] =
-            payload.value;
-          delete state.employment_history_job_title;
-          delete state.employer;
-          delete state.start_date;
-          delete state.city;
-          delete state.employment_summary;
-          break;
-        case "education":
-          state.education[payload.index][payload.fieldId] = payload.value;
-          delete state.school;
-          delete state.degree;
-          delete state.school_start_date;
-          delete state.school_end_date;
-          delete state.school_city;
-          delete state.education_summary;
-          break;
-      }
+      state.resume[payload.sectionSchema.id][payload.index][payload.fieldId] =
+        payload.value;
+      payload.sectionSchema.fields.forEach((f) => {
+        delete state.resume[f.id];
+      });
     },
     deleteMultiRecord(state, payload) {
-      switch (payload.type) {
-        case "employment history":
-          state.employment_history.splice(payload.index, 1);
-          break;
-        case "education":
-          state.education.splice(payload.index, 1);
-          break;
-        case "website and social links":
-          state.links.splice(payload.index, 1);
-          break;
-
-        case "skills":
-          state.skills.splice(payload.index, 1);
-          break;
-      }
+      state.resume[payload.id].splice(payload.index, 1);
     },
     setStoreValues(state, payload) {
-      Object.assign(state, payload);
+      state.resume = Object.assign({}, payload);
     },
     // eslint-disable-next-line no-unused-vars
     clearStoreValues(state) {
-      delete state.id;
-      delete state.created_at;
-      delete state.udpated_at;
-      state.resume_title = "";
-      state.job_title = "";
-      state.first_name = "";
-      state.last_name = "";
-      state.email = "";
-      state.phone = "";
-      state.dob = "";
-      state.pd_city = "";
-      state.summary = "";
-      state.employment_history = [];
-      state.education = [];
-      state.links = [];
-      state.skills = [];
+      const customProps = ["id", "created_at", "updated_at", 5, 6, 7, 8];
+      customProps.forEach((prop) => {
+        delete state.resume[prop];
+      });
+      state.resume.resume_title = "";
+      state.resume.job_title = "";
+      state.resume.first_name = "";
+      state.resume.last_name = "";
+      state.resume.email = "";
+      state.resume.phone = "";
+      state.resume.dob = "";
+      state.resume.pd_city = "";
+      state.resume.summary = "";
     },
     setListOrder(state, payload) {
-      state[payload.type] = payload.value;
+      Vue.set(state.resume, payload.sectionSchema.id, payload.value);
     },
     setResumeTemplate(state, template) {
-      state.resume_template = template;
+      state.resume.resume_template = template;
+    },
+  },
+  getters: {
+    // eslint-disable-next-line prettier/prettier
+    getMultiRecBySecId: (state) => (id) => {
+      return state.resume[id] || [];
     },
   },
   actions: {},

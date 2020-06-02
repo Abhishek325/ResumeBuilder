@@ -10,6 +10,14 @@ const routes = [
     component: Layout,
   },
   {
+    path: "/about",
+    component: () => import("../views/About.vue"),
+  },
+  {
+    path: "/templates",
+    component: () => import("../views/Templates.vue"),
+  },
+  {
     path: "/resume/add",
     component: () => import("../views/AddUpdateResume.vue"),
   },

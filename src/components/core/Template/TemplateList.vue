@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import TemplatesConfig from "../../model/templatesConfig.json";
+import TemplatesConfig from "../../../model/templatesConfig.json";
 export default {
   props: {
     formData: Object,

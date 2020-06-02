@@ -6,11 +6,12 @@
       </div>
       <div class="col m4">
         <router-link
-          class="btn-small waves-effect waves-light right"
+          class="btn-flat waves-effect waves-default right"
           to="/resume/add"
           ><i class="material-icons left">add</i>Create new</router-link
         >
       </div>
+      <AboutInfo :embedded="true" v-if="resumeList.length == 0" />
       <ResumeCard
         v-for="(resume, index) in resumeList"
         :key="index"
@@ -18,20 +19,20 @@
         @resumeListUpdate="onResumeListUpdate"
       />
     </div>
-    <div class="footer center-align">
-      Made with ❤️ by Abhishek!
-    </div>
+   
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import AboutInfo from "./About";
 import ResumeCard from "@/components/core/ResumeCard";
 import STORAGE_SERVICE from "../services/persistence";
 
 export default {
   components: {
     ResumeCard,
+    AboutInfo,
   },
   data() {
     return {
@@ -49,22 +50,8 @@ export default {
 };
 </script>
 <style scoped>
-.btn-small {
+.btn-flat {
   margin-top: 1rem;
-}
-.footer {
-  background: transparent;
-  clear: both;
-  position: relative;
-  height: 50px;
-  margin-top: 3rem;
-}
-.footer > p > i {
-  position: relative;
-  top: 5px;
-  background: -webkit-linear-gradient(#333, #e00, #000);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 .container {
   height: auto;

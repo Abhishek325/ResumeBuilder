@@ -1,50 +1,77 @@
 <template>
   <div class="col m6 s12">
-    <div class="card hoverable medium">
-      <div class="row">
-        <button class="btn-flat" @click="deleteResume()">
-          <i class="material-icons">close</i>
-        </button>
-        <div
-          class="col m6 s12 valign-wrapper blur hide-on-med-and-down"
-          style="background:#dedede;"
-        >
-          <!-- <component
-            :formData="formData"
-            scaleX="0.9"
-            scaleY="0.23"
-            :is="resume.resume_template"
-            style="max-height: 380%;overflow-y: hidden;"
-          ></component> -->
-          <img
-            :src="`img/templates/${resume.resume_template.toLowerCase()}.png`"
-            style="width:100%;height:93%;"
-          />
-        </div>
-        <div class="col m6 s12 valign-wrapper">
-          <div class="card-content">
-            <h5 class="truncate" :title="resume.resume_title">
-              {{ resume.resume_title }}
-            </h5>
-            <span
-              class="grey-text lighten-1 truncate"
-              :title="auditText"
-              style="font-size:12px"
-              >{{ auditText }}</span
-            >
-            <router-link class="link" :to="`/resume/edit/${resume.id}`"
-              ><h6>
-                <i class="material-icons">edit</i>
-                Edit
-              </h6></router-link
-            >
-            <button class="link" @click="duplicateResume()">
-              <h6>
-                <i class="material-icons">content_copy</i>
-                Duplicate
-              </h6>
-            </button>
+    <div class="card horizontal">
+      <div class="card-stacked">
+        <div class="card-content">
+          <h5 class="truncate" :title="resume.resume_title" v-if="!editMode">
+            {{ resume.resume_title }}
+            <i class="material-icons" @click="editMode = true">mode_edit</i>
+          </h5>
+          <div
+            class="row"
+            v-if="editMode"
+            style="margin-bottom: -2.5rem;margin-top: -1rem;"
+          >
+            <div class="input-field col s10" style="margin-bottom:0;">
+              <input
+                type="text"
+                @keydown.esc="editMode = false"
+                v-model="resume.resume_title"
+              />
+              <label class="active">Resume Name</label>
+            </div>
+            <div class="col s2">
+              <button
+                class="btn-flat waves-effect waves-default"
+                style="margin-top: 2rem;right: 1rem;"
+                @click="updateResumeTitle()"
+              >
+                <i class="material-icons">check</i>
+              </button>
+            </div>
           </div>
+          <span
+            class="grey-text lighten-1 truncate"
+            :title="auditText"
+            style="font-size:12px"
+            >{{ auditText }}</span
+          >
+          <p class="left">
+            <span
+              class="new badge"
+              v-for="(tag, index) in tags"
+              :key="index"
+              :data-badge-caption="`${tag.count} ${tag.label}`"
+            >
+              <i
+                class="material-icons"
+                style="font-size: 14px;position: relative;top: 1.5px;"
+                >{{ tag.icon }}</i
+              >
+            </span>
+          </p>
+        </div>
+        <div class="card-action" style="border-top: none;">
+          <span class="icon-placeholder right"></span>
+          <span class="icon-placeholder right"></span>
+          <span class="icon-placeholder right"></span>
+          <a class="link right circle waves-effect" @click="deleteResume()">
+            <i class="material-icons">delete</i>
+          </a>
+          <a
+            class="link right circle waves-effect"
+            title="Duplicate"
+            @click="duplicateResume()"
+          >
+            <i class="material-icons">content_copy</i>
+          </a>
+          <router-link
+            class="link right circle waves-effect"
+            title="Edit"
+            :to="`/resume/edit/${resume.id}`"
+          >
+            <i class="material-icons">edit</i></router-link
+          >
         </div>
       </div>
     </div>
@@ -67,6 +94,38 @@ export default {
   props: {
     resume: Object,
   },
+  data() {
+    return {
+      editMode: false,
+      tags: [],
+    };
+  },
+  mounted() {
+    // Employment
+    this.tags.push({
+      icon: "work",
+      label: "Employment",
+      count: (this.resume[5] || []).length,
+    });
+    //Education
+    this.tags.push({
+      icon: "school",
+      label: "Education",
+      count: (this.resume[6] || []).length,
+    });
+    // Skills
+    this.tags.push({
+      icon: "star",
+      label: "Skills",
+      count: (this.resume[7] || []).length,
+    });
+    //links
+    this.tags.push({
+      icon: "insert_link",
+      label: "Links",
+      count: (this.resume[8] || []).length,
+    });
+  },
   methods: {
     duplicateResume() {
       STORAGE_SERVICE.duplicateResume(this.resume);
@@ -78,41 +137,71 @@ export default {
         this.$emit("resumeListUpdate");
       }
     },
+    updateResumeTitle() {
+      STORAGE_SERVICE.saveResume(this.resume);
+      this.editMode = false;
+    },
   },
 };
 </script>
 <style scoped>
+.card {
+  height: 220px;
+}
 .row,
 .col.m6 {
   height: 100%;
 }
-.material-icons {
-  font-size: 15px;
-}
 .link {
-  color: #000;
-  padding: 0;
-  background: none;
-  border: none;
+  visibility: hidden;
   cursor: pointer;
 }
 .link:hover {
-  color: #039be5;
+  background: #eee;
+}
+.card:hover .link {
+  visibility: visible;
+}
+.link > i {
+  color: #757575;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+}
+.card
+  .card-action
+  a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-large):not(.btn-floating) {
+  margin-right: 15px;
+}
+span.badge.new {
+  background-color: #eee;
+  margin-top: 0.75rem;
+  margin-right: 0.5rem;
+  margin-left: 0;
+  float: left;
+  color: #666;
 }
 .btn-flat {
   position: absolute;
   right: 0;
 }
-.blur {
-  -webkit-filter: blur(1.5px);
-  -moz-filter: blur(1.5px);
-  -o-filter: blur(1.5px);
-  -ms-filter: blur(1.5px);
-  filter: blur(1.5px);
-  user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;
+.icon-placeholder:before {
+  content: "\25CF";
+  font-size: 1.5rem;
+  color: #ccc;
+  margin-right: 30px;
+}
+.card:hover .icon-placeholder {
+  display: none;
+}
+h5 > i {
+  top: 2px;
+  color: #999;
+  font-size: 20px;
+  cursor: pointer;
+  position: relative;
+  visibility: hidden;
+}
+h5:hover > i {
+  visibility: visible;
 }
 </style>

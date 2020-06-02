@@ -12,13 +12,12 @@
   </div>
 </template>
 <script>
-import FormSchema from "../../../model/formSchema.json";
 import CommonInput from "../CommonInput";
 
 export default {
   props: {
     index: Number,
-    sectionName: String,
+    section: Object,
   },
   components: {
     CommonInput,
@@ -30,31 +29,15 @@ export default {
     };
   },
   mounted() {
-    this.sectionSchema = Object.assign(
-      {},
-      FormSchema.sections.find((s) => s.name === this.sectionName)
-    );
-    this.sectionSchema.fields = this.sectionSchema.fields.filter(
+    this.section.fields = this.section.fields.filter(
       (f) => f.type !== "form-action"
     );
     this.getSectionDataByIndex();
   },
   methods: {
     getSectionDataByIndex() {
-      switch (this.sectionName.toLowerCase()) {
-        case "employment history":
-          this.formData = this.$store.state.employment_history[this.index];
-          break;
-        case "education":
-          this.formData = this.$store.state.education[this.index];
-          break;
-        case "website and social links":
-          this.formData = this.$store.state.links[this.index];
-          break;
-        case "skills":
-          this.formData = this.$store.state.skills[this.index];
-          break;
-      }
+      this.formData = this.$store.state.resume[this.section.id][this.index];
+      this.sectionSchema = Object.assign({}, this.section);
       this.sectionSchema.fields.forEach((f) => {
         f.value = this.formData[f.id];
       });
@@ -62,7 +45,7 @@ export default {
     onInput(fieldId, value) {
       if (this.formData[fieldId] != value) {
         this.$store.commit("updateMultiRecord", {
-          type: this.sectionName.toLowerCase(),
+          sectionSchema: this.section,
           value: value,
           fieldId: fieldId,
           index: this.index,

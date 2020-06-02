@@ -2,21 +2,7 @@
     "title": "",
     "sections": [
         {
-            "name": "",
-            "description": "",
-            "isMultiRecord": false,
-            "fields": [
-                {
-                    "id": "resume_title",
-                    "label": "Resume title",
-                    "type": "form-text",
-                    "class": "offset-m3",
-                    "col": "m6"
-                }
-            ]
-        },
-        {
-            "id": 1,
+            "id": 3,
             "name": "Personal Details",
             "description": "Details about you",
             "isMultiRecord": false,
@@ -80,7 +66,7 @@
             ]
         },
         {
-            "id": 2,
+            "id": 4,
             "name": "Professional Summary",
             "description": "Include 2-3 clear sentences about your overall experience",
             "isMultiRecord": false,
@@ -95,7 +81,7 @@
             ]
         },
         {
-            "id": 3,
+            "id": 5,
             "name": "Employment history",
             "description": "Include your last 10 years of relevant experience and dates in this section. List your most recent position first",
             "isMultiRecord": true,
@@ -147,7 +133,7 @@
             ]
         },
         {
-            "id": 4,
+            "id": 6,
             "name": "Education",
             "isMultiRecord": true,
             "deleteConfirmationRequired": true,
@@ -206,7 +192,7 @@
             ]
         },
         {
-            "id": 5,
+            "id": 7,
             "name": "Skills",
             "isMultiRecord": true,
             "deleteConfirmationRequired": false,
@@ -229,7 +215,7 @@
             ]
         },
         {
-            "id": 6,
+            "id": 8,
             "name": "Website and Social Links",
             "isMultiRecord": true,
             "deleteConfirmationRequired": false,

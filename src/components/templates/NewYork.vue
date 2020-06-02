@@ -49,6 +49,10 @@
             {{ item }}
           </p>
         </div>
+        <div class="col m9 s9 detailed-view" v-if="formData.summary">
+          <h6>Profile</h6>
+          <p class="employment-summary" v-html="formData.summary"></p>
+        </div>
         <div
           class="col m9 s9 detailed-view"
           v-if="
@@ -166,7 +170,7 @@ ul:not(.browser-default) > li {
 .employment-summary {
   line-height: 20px;
   font-size: 13px;
-  margin-bottom: 1rem !important;
-  margin-top: -0.75rem !important;
+  margin-bottom: 0.5rem !important;
+  margin-top: 0.5rem !important;
 }
 </style>

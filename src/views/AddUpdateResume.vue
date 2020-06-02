@@ -29,12 +29,13 @@
         <i class="material-icons right">delete</i>
       </button>
       <div class="container">
+        <br />
         <div
           class="row"
           v-for="(section, key) in formSchema.sections"
           :key="key"
         >
-          <div class="col s12">
+          <div class="col s12" v-if="section.name || section.description">
             <h6>{{ section.name }}</h6>
             <small class="grey-text lighten-3">{{ section.description }}</small>
           </div>
@@ -61,9 +62,6 @@
             @click="save()"
           >
             Save
-          </button>
-          <button class="btn waves-effect waves-light" v-print="'#resumeView'">
-            Print
           </button>
         </div>
         <br />
@@ -138,7 +136,7 @@ export default {
   },
   methods: {
     save() {
-      STORAGE_SERVICE.saveResume(this.$store.state);
+      STORAGE_SERVICE.saveResume(this.$store.state.resume);
       this.isFormDirty = false;
       if (!this.resumeId) {
         this.$store.commit("clearStoreValues");
@@ -170,6 +168,9 @@ export default {
 }
 h6 {
   font-weight: 600;
+}
+.pullup {
+  margin-top: 0.3rem;
 }
 .floating-button {
   position: absolute;
