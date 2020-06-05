@@ -47,7 +47,7 @@ export default {
     };
   },
   created() {
-    this.resumeList = STORAGE_SERVICE.getResumeList();
+    this.resumeList = STORAGE_SERVICE.getResumeList() || [];
   },
   methods: {
     onResumeListUpdate() {

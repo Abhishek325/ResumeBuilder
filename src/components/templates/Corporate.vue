@@ -28,7 +28,14 @@
                   {{ item.employment_history_job_title }}
                 </p>
                 <p class="job-duration">
-                  {{ item.employer }}, {{ item.city }} / {{ item.start_date }}
+                  {{ item.employer }}, {{ item.city }} /
+                  <span v-if="item.start_date">
+                    {{ item.start_date }}
+                  </span>
+                  <span v-if="item.start_date && item.to_date"> - </span>
+                  <span v-if="item.to_date">
+                    {{ item.to_date }}
+                  </span>
                 </p>
                 <p
                   class="employment-summary"
@@ -65,6 +72,8 @@
             <p class="contact">
               <i class="material-icons">location_on</i> {{ formData.pd_city }}
             </p>
+            <p class="dob">Date of birth</p>
+            <p class="contact">{{ formData.dob }}</p>
             <br />
             <h6 v-if="formData.links && formData.links.length > 0">
               Links
@@ -150,5 +159,11 @@ h6 {
   position: relative;
   top: 3px;
   margin-right: 0.25rem;
+}
+.dob {
+  margin-top: 1rem !important;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #353f58 !important;
 }
 </style>

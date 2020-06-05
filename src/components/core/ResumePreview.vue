@@ -83,8 +83,13 @@ export default {
     scaleY: String,
   },
   computed: {
-    template() {
-      return this.$store.state.resume.resume_template || "Sydney";
+    template: {
+      get() {
+        return this.$store.state.resume.resume_template || "Sydney";
+      },
+      set(val) {
+        this.$store.commit("setResumeTemplate", val);
+      },
     },
   },
   data() {

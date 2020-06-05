@@ -9,10 +9,21 @@
         <div class="col s12 m12 content" style="padding-right:0">
           <div class="col s8 m8 content" style="padding-top:1rem;">
             <div class="col s12 section">
-              <h5 class="name">
-                {{ formData.first_name }} {{ formData.last_name }}
-              </h5>
-              <p class="title text-uppercase">{{ formData.job_title }}</p>
+              <div class="row valign-wrapper">
+                <div class="col s3">
+                  <img
+                    :src="formData.photo_url"
+                    alt=""
+                    class="circle responsive-img"
+                  />
+                </div>
+                <div class="col s9">
+                  <h5>{{ formData.first_name }} {{ formData.last_name }}</h5>
+                  <p class="font-italic title text-uppercase">
+                    {{ formData.job_title }}
+                  </p>
+                </div>
+              </div>
             </div>
             <div class="col s12 m12 section" style="margin-bottom: 1rem;">
               <h6>Profile</h6>
@@ -28,7 +39,15 @@
                   {{ item.employment_history_job_title }}, {{ item.employer }},
                   {{ item.city }}
                 </p>
-                <p class="job-duration text-uppercase">{{ item.start_date }}</p>
+                <p class="job-duration text-uppercase">
+                  <span v-if="item.start_date">
+                    {{ item.start_date }}
+                  </span>
+                  <span v-if="item.start_date && item.to_date"> - </span>
+                  <span v-if="item.to_date">
+                    {{ item.to_date }}
+                  </span>
+                </p>
                 <p
                   class="employment-summary"
                   v-html="item.employment_summary"
@@ -61,6 +80,8 @@
             <p class="contact">
               {{ formData.email }}
             </p>
+            <p class="dob">Date of birth</p>
+            <p class="contact">{{ formData.dob }}</p>
             <br />
             <h6 v-if="formData.links && formData.links.length > 0">
               Links
@@ -145,5 +166,11 @@ a {
   padding-top: 5.15rem;
   padding-left: 1.5rem;
   height: 304mm;
+}
+.dob {
+  margin-top: 1rem !important;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #445e78 !important;
 }
 </style>

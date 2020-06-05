@@ -11,6 +11,7 @@
                     "id": "job_title",
                     "label": "Job Title",
                     "type": "form-text",
+                    "validations": "",
                     "class": "",
                     "col": "m6"
                 },
@@ -18,6 +19,7 @@
                     "id": "photo_url",
                     "label": "Photo URL",
                     "type": "form-text",
+                    "validations": "url: {require_protocol: true }",
                     "class": "",
                     "col": "m6"
                 },
@@ -25,6 +27,7 @@
                     "id": "first_name",
                     "label": "First Name",
                     "type": "form-text",
+                    "validations": "alpha",
                     "class": "",
                     "col": "m6"
                 },
@@ -32,13 +35,15 @@
                     "id": "last_name",
                     "label": "Last Name",
                     "type": "form-text",
+                    "validations": "alpha",
                     "class": "",
                     "col": "m6"
                 },
                 {
                     "id": "email",
                     "label": "Email",
-                    "type": "form-email",
+                    "type": "form-text",
+                    "validations": "email",
                     "class": "",
                     "col": "m6"
                 },
@@ -52,7 +57,9 @@
                 {
                     "id": "dob",
                     "label": "Date of birth",
+                    "placeholder": "dd/mm/yyyy",
                     "type": "form-text",
+                    "validations": "date_format:dd/MM/yyyy",
                     "class": "",
                     "col": "m6"
                 },
@@ -60,6 +67,7 @@
                     "id": "pd_city",
                     "label": "City",
                     "type": "form-text",
+                    "validations": "alpha",
                     "class": "",
                     "col": "m6"
                 }
@@ -104,6 +112,13 @@
                 {
                     "id": "start_date",
                     "label": "Start date",
+                    "type": "form-text",
+                    "class": "",
+                    "col": "m6"
+                },
+                {
+                    "id": "to_date",
+                    "label": "End date",
                     "type": "form-text",
                     "class": "",
                     "col": "m6"
@@ -232,6 +247,7 @@
                     "id": "link",
                     "label": "Link",
                     "type": "form-text",
+                    "validations": "url",
                     "class": "",
                     "col": "m6"
                 },

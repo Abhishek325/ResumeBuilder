@@ -29,3 +29,11 @@ export default {
   margin-top: 1.75rem;
 }
 </style>
+<style>
+.is-invalid {
+  position: relative;
+  top: -5px;
+  color: #f44336;
+  font-size: 12px;
+}
+</style>
