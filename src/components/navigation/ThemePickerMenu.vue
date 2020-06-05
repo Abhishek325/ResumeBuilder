@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapMutations } from "vuex";
 import STORAGE_SERVICE from "../../services/persistence";
 
 export default {
@@ -52,7 +52,6 @@ export default {
     };
   },
   computed: {
-    ...mapState(["theme"]),
     theme() {
       return this.$store.state.theme || { name: "indigo" };
     },

@@ -42,7 +42,6 @@ export default {
 .row {
   height: 100vh;
   padding-top: 3rem;
-  background: #7a8599;
 }
 img {
   height: 260px;

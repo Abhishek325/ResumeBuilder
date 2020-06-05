@@ -75,7 +75,7 @@
     >
       <ResumePreview
         scaleX="0.5"
-        scaleY="0.45"
+        scaleY="0.4"
         @fullModeActivated="resumeViewScrollable = true"
         @fullModeDeactivated="resumeViewScrollable = false"
         @onTemplateUpdate="onDirty()"

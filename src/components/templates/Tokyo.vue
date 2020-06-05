@@ -52,7 +52,14 @@
                 {{ item.employment_history_job_title }}
               </p>
               <p class="job-duration">
-                {{ item.employer }}, {{ item.city }} / {{ item.start_date }}
+                {{ item.employer }}, {{ item.city }} /
+                <span v-if="item.start_date">
+                  {{ item.start_date }}
+                </span>
+                <span v-if="item.start_date && item.to_date"> - </span>
+                <span v-if="item.to_date">
+                  {{ item.to_date }}
+                </span>
               </p>
               <p
                 class="employment-summary"
@@ -83,6 +90,8 @@
           <p class="contact">
             {{ formData.email }}
           </p>
+          <p class="dob">Date of birth</p>
+          <p class="contact">{{ formData.dob }}</p>
           <br />
           <h6 v-if="formData.links && formData.links.length > 0">
             Links
@@ -127,10 +136,12 @@ export default {
 .card-content {
   background: #fff !important;
 }
-.content,
-a {
+.content {
   color: #000;
   background: #fff;
+}
+a {
+  color: #353cac;
 }
 h5 {
   font-weight: 800;
@@ -143,7 +154,7 @@ h6 {
 }
 .contact {
   margin-top: 0.5rem;
-  font-size: 11px;
+  font-size: 13px;
 }
 .sidebar > .contact {
   font-size: 13px;
@@ -154,7 +165,7 @@ h6 {
 }
 .contact > i,
 .skill {
-  font-size: 12px;
+  font-size: 13px;
   margin-bottom: 0.25rem !important;
 }
 .contact > i {
@@ -182,5 +193,11 @@ h6 {
   font-size: 13px;
   font-style: italic;
   margin-bottom: -0.75rem !important;
+}
+.dob {
+  margin-top: 1rem !important;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #353cac !important;
 }
 </style>
