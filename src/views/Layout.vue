@@ -18,8 +18,15 @@
         :resume="resume"
         @resumeListUpdate="onResumeListUpdate"
       />
+      <div class="fixed-action-btn">
+        <router-link
+          class="btn-floating btn-large z-depth-3 waves-effect waves-light"
+          :class="{ pulse: resumeList.length === 0 }"
+          to="/resume/add"
+          ><i class="material-icons left">add</i>Create new</router-link
+        >
+      </div>
     </div>
-   
   </div>
 </template>
 
@@ -58,27 +65,30 @@ export default {
 }
 </style>
 <style>
-.btn,
-.btn-large,
-.btn-floating,
-.btn-small,
-nav {
-  background-color: #4a148c;
+.detailed-view * {
+  color: #000;
 }
-.btn:hover,
-.btn-large:hover,
-.btn-small:hover,
-.btn-floating:hover,
-.btn:focus,
-.btn-large:focus,
-.btn-small:focus,
-.btn-floating:focus {
-  background-color: #6a1b9a;
+.text-uppercase {
+  text-transform: uppercase !important;
 }
-.btn-floating[disabled] {
-  background-color: #4a148c !important;
+.font-italic {
+  font-style: italic !important;
 }
-body {
-  background: #f1f1f1;
+.A4-height {
+  /* width: 210mm; */
+  height: 296mm;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.25);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
 </style>

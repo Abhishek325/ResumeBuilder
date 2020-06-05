@@ -1,5 +1,8 @@
 <template>
   <div class="row" :class="{ container: !embedded }">
+    <div class="col m8" v-if="!embedded">
+      <h5>About this project</h5>
+    </div>
     <div class="col m12">
       <div class="card medium">
         <div class="card-content">
@@ -24,13 +27,13 @@
               <li>
                 Regulary updated templates library
               </li>
-              <li>Duplicate a resume</li>
-              <li>Add tags to your resume to identify the one!</li>
               <li>Re-order skills and profile links</li>
+              <li>Switch themes - <b>Dark mode</b> included!</li>
+              <li>Duplicate an existing resume for last minute tweaks!</li>
             </ol>
           </div>
           <div class="col m12">
-            <blockquote style="border-left-color:#4a148c">
+            <blockquote>
               An Open-Source resume maker to build your profile! No more "Get
               premium" popups for fancy templates, no more "Create account to
               get started", Just fill and save!

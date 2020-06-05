@@ -1,7 +1,6 @@
 <template>
   <div
-    :style="{ 'margin-top': (fullMode ? marginTop : 0) + 'rem' }"
-    class="hide-on-small-only"
+    :style="{ 'margin-top': (fullMode ? 34 : -1.25) + 'rem' }"
     style="width:100%"
   >
     <component
@@ -28,7 +27,10 @@
           <button
             class="btn-floating waves-effect waves-light"
             title="Toggle template"
-            @click="templateView = !templateView"
+            @click="
+              onFit();
+              templateView = !templateView;
+            "
           >
             <i class="material-icons">gradient</i>
           </button>
@@ -61,10 +63,7 @@
             title="Fit to page"
             :disabled="templateView"
             class="btn-floating waves-effect waves-light"
-            @click="
-              fullMode = false;
-              $emit('fullModeDeactivated');
-            "
+            @click="onFit()"
           >
             <i class="material-icons">fullscreen_exit</i>
           </button>
@@ -84,19 +83,12 @@ export default {
     scaleY: String,
   },
   computed: {
-    marginTop() {
-      switch (this.template) {
-        case "NewYork":
-          return 11.5;
-        case "Sydney":
-          return 5;
-      }
-      return 0;
+    template() {
+      return this.$store.state.resume.resume_template || "Sydney";
     },
   },
   data() {
     return {
-      template: "NewYork",
       templateView: false,
       fullMode: false,
       formData: {},
@@ -134,6 +126,11 @@ export default {
     });
   },
   methods: {
+    onFit() {
+      document.getElementById("resumeViewContainer").scrollTop = 0;
+      this.fullMode = false;
+      this.$emit("fullModeDeactivated");
+    },
     onTemplateSelected(templateComponentName) {
       this.template = templateComponentName;
       this.templateView = false;
@@ -160,23 +157,9 @@ export default {
   margin-top: 5rem;
 }
 .fixed-action-btn {
-  right: 30px;
   bottom: 1.5rem;
 }
 .fixed-action-btn:hover ul {
   visibility: visible;
-}
-</style>
-<style>
-#resumeView {
-  height: 100%;
-}
-@media print {
-  .card {
-    box-shadow: none !important;
-    border: none !important;
-    border-radius: 0 !important;
-    margin: 0;
-  }
 }
 </style>

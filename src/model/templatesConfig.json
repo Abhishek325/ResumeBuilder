@@ -1,14 +1,20 @@
 [
     {
-        "name": "New York",
-        "component": "NewYork",
-        "imagePath": "newyork.png",
-        "description": "A simple resume template to get you started with the information"
-    },
-    {
         "name": "Sydney",
         "component": "Sydney",
         "imagePath": "sydney.png",
         "description": "An elegant design to convey your profile perfectly"
+    },
+    {
+        "name": "Corporate",
+        "component": "Corporate",
+        "imagePath": "corporate.png",
+        "description": "An official corporate template adhering to the compliance"
+    },
+    {
+        "name": "Tokyo",
+        "component": "Tokyo",
+        "imagePath": "tokyo.png",
+        "description": "Easy to read and easier to write. Let's you foucus on the content rather than design"
     }
 ]

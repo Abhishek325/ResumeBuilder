@@ -1,9 +1,14 @@
 <template>
-  <div>
+  <div @mouseleave="showColorPicker = false">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      :href="`css/themes/${themeOptions.name}.css`"
+    />
     <div class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo center">ResumeBuilder</a>
+          <a href="#" class="brand-logo truncate center">Resume Builder</a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"
             ><i class="material-icons">menu</i></a
           >
@@ -12,6 +17,17 @@
               <router-link :to="menu.link">{{ menu.label }}</router-link>
             </li>
           </ul>
+          <div class="right">
+            <button
+              class="btn-flat waves-effect waves-default white-text"
+              style="margin-right:1rem"
+              @click="showColorPicker = !showColorPicker"
+            >
+              <i class="material-icons" style="margin-top:-1rem"
+                >format_color_fill</i
+              >
+            </button>
+          </div>
         </div>
       </nav>
     </div>
@@ -20,12 +36,20 @@
         <router-link :to="menu.link">{{ menu.label }}</router-link>
       </li>
     </ul>
+    <ThemePickerMenu v-if="showColorPicker" />
   </div>
 </template>
 <script>
+import ThemePickerMenu from "./ThemePickerMenu";
+import STORAGE_SERVICE from "../../services/persistence";
+
 export default {
+  components: {
+    ThemePickerMenu,
+  },
   data() {
     return {
+      showColorPicker: false,
       menuItems: [
         {
           link: "/",
@@ -42,5 +66,22 @@ export default {
       ],
     };
   },
+  computed: {
+    themeOptions() {
+      return this.$store.state.theme || { name: "indigo" };
+    },
+  },
+  mounted() {
+    const theme = STORAGE_SERVICE.getTheme();
+    this.$store.commit("switchTheme", theme);
+  },
 };
 </script>
+<style scoped>
+.brand-logo {
+  font-weight: 300;
+}
+.router-link-exact-active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+</style>

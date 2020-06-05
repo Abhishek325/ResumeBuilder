@@ -1,0 +1,37 @@
+.btn,
+.btn-large,
+.btn-floating,
+.btn-small,
+nav {
+  background-color: #4a148c;
+}
+
+.btn:hover,
+.btn-large:hover,
+.btn-small:hover,
+.btn-floating:hover,
+.btn:focus,
+.btn-large:focus,
+.btn-small:focus,
+.btn-floating:focus {
+  background-color: #6a1b9a;
+}
+
+.footer {
+  color: #aaa;
+}
+
+
+blockquote {
+  border-left-color: #4a148c;
+}
+
+body,
+.collection {
+  background: #f1f1f1;
+}
+
+span.badge.new {
+  background-color: #eee;
+  color: #666;
+}

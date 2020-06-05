@@ -18,6 +18,7 @@ export default new Vuex.Store({
       pd_city: "",
       summary: "",
     },
+    theme: {},
   },
   mutations: {
     setFieldValue(state, payload) {
@@ -31,8 +32,7 @@ export default new Vuex.Store({
       let data = [];
       // Single valued fields e.g. skill:
       if (fields.length == 1) {
-        // eslint-disable-next-line prettier/prettier
-        data = state.resume[fields[0]]
+        data = (state.resume[fields[0]] || ",")
           .split(",")
           .filter((x) => x.trim() !== "");
         // First value
@@ -42,13 +42,16 @@ export default new Vuex.Store({
         // Subsequent value
         else state.resume[payload.sectionSchema.id].push(...data);
       } else {
+        var valid = true;
         // Mutli valued fields e.g. Education details:
         fields.forEach((f) => {
-          if (!state.resume[f]) {
-            return;
-          }
+          valid = valid && state.resume[f];
           data[f] = state.resume[f];
         });
+        if (!valid) {
+          alert("Please fill in all the fields");
+          return;
+        }
         // First value
         if ((state.resume[payload.sectionSchema.id] || []).length === 0)
           Vue.set(state.resume, payload.sectionSchema.id, [{ ...data }]);
@@ -98,6 +101,9 @@ export default new Vuex.Store({
     },
     setResumeTemplate(state, template) {
       state.resume.resume_template = template;
+    },
+    switchTheme(state, theme) {
+      state.theme = theme;
     },
   },
   getters: {

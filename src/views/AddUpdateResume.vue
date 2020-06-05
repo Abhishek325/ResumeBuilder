@@ -68,13 +68,14 @@
       </div>
     </div>
     <div
+      id="resumeViewContainer"
       class="col s12 m6 valign-wrapper"
       style="background:#7a8599;"
       :style="{ 'overflow-y': resumeViewScrollable ? 'auto' : 'hidden' }"
     >
       <ResumePreview
-        scaleX="0.6"
-        scaleY="0.6"
+        scaleX="0.5"
+        scaleY="0.45"
         @fullModeActivated="resumeViewScrollable = true"
         @fullModeDeactivated="resumeViewScrollable = false"
         @onTemplateUpdate="onDirty()"
@@ -181,19 +182,6 @@ h6 {
   position: absolute;
   bottom: 1.5rem;
   left: 45%;
-}
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.25);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.3);
 }
 body {
   overflow-y: hidden;

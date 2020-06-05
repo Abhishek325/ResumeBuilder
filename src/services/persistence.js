@@ -36,5 +36,12 @@ const STORAGE_SERVICE = {
     resumeList = resumeList.filter((x) => x.id !== resumeId);
     localStorage.setItem("resumeList", JSON.stringify(resumeList));
   },
+  //Theme
+  getTheme() {
+    return JSON.parse(localStorage.getItem("theme"));
+  },
+  saveTheme(theme) {
+    localStorage.setItem("theme", JSON.stringify(theme));
+  },
 };
 export default STORAGE_SERVICE;

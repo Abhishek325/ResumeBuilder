@@ -24,7 +24,6 @@ export default {
 </script>
 <style scoped>
 .btn-flat {
-  background: #ddd;
   margin-bottom: 0.4rem;
 }
 </style>

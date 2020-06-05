@@ -5,30 +5,31 @@
     :style="{ transform: `scaleX(${scaleX}) scaleY(${scaleY})` }"
   >
     <div class="card-content" style="padding: 0 9px 0 9px;">
-      <div class="row" style="width:104%;margin-top: -0.4rem;">
-        <div class="col s12 m12 content" style="padding-right:0">
-          <div class="col s8 m8 content" style="padding-top:1rem;">
-            <div class="col s12 section">
-              <h5 class="name">
-                {{ formData.first_name }} {{ formData.last_name }}
-              </h5>
-              <p class="title text-uppercase">{{ formData.job_title }}</p>
-            </div>
-            <div class="col s12 m12 section" style="margin-bottom: 1rem;">
-              <h6>Profile</h6>
+      <div class="row">
+        <div class="col s12 m12 center-align header">
+          <h5 class="name text-uppercase">
+            {{ formData.first_name }} {{ formData.last_name }}
+          </h5>
+          <p class="font-italic">{{ formData.job_title }}</p>
+        </div>
+        <div class="col s12 m12 content" style="padding-right:2px">
+          <div class="col s8 m8" style="padding-top:1rem;">
+            <div class="col s12 m12 section">
+              <h6>Career Objective</h6>
               <p class="employment-summary" v-html="formData.summary"></p>
             </div>
             <div class="col s12 m12 section">
-              <h6>Employment history</h6>
+              <h6>Professional Experience</h6>
               <section
                 v-for="(item, index) in formData.employment_history"
                 :key="`employment-${index}`"
               >
                 <p class="job-title black-text darken-2">
-                  {{ item.employment_history_job_title }}, {{ item.employer }},
-                  {{ item.city }}
+                  {{ item.employment_history_job_title }}
                 </p>
-                <p class="job-duration text-uppercase">{{ item.start_date }}</p>
+                <p class="job-duration">
+                  {{ item.employer }}, {{ item.city }} / {{ item.start_date }}
+                </p>
                 <p
                   class="employment-summary"
                   v-html="item.employment_summary"
@@ -55,11 +56,14 @@
             </div>
           </div>
           <div class="col s4 m4 sidebar">
-            <h6>Details</h6>
-            <p class="contact">{{ formData.pd_city }}</p>
-            <p class="contact">{{ formData.phone }}</p>
             <p class="contact">
-              {{ formData.email }}
+              <i class="material-icons">email</i> {{ formData.email }}
+            </p>
+            <p class="contact">
+              <i class="material-icons">phone</i> {{ formData.phone }}
+            </p>
+            <p class="contact">
+              <i class="material-icons">location_on</i> {{ formData.pd_city }}
             </p>
             <br />
             <h6 v-if="formData.links && formData.links.length > 0">
@@ -104,46 +108,47 @@ a,
 .contact,
 .skill {
   font-size: 12px;
+  margin-bottom: 0.25rem !important;
+}
+.content,
+a {
+  color: #222;
 }
 a {
   text-decoration: underline;
 }
 h6 {
-  text-transform: capitalize;
+  text-transform: uppercase;
+  font-style: italic;
   font-weight: 600;
   color: #222;
-}
-.content,
-h5 {
-  color: #222;
-}
-.sidebar > h6,
-a {
-  color: #fff;
 }
 .card-content {
   background: #fff !important;
 }
 .job-title {
-  font-size: 15px;
-}
-.title {
-  font-size: 12px;
-  margin-top: -0.5rem !important;
+  font-weight: 600;
 }
 .job-duration {
-  color: #c3c7cd;
+  color: #666;
   font-size: 13px;
+  font-style: italic;
   margin-bottom: -0.75rem !important;
 }
-.employment-summary > p {
-  padding-top: 1rem !important;
+.employment-summary > p > span {
+  display: block;
+  margin-top: 1rem;
 }
 .sidebar {
-  background: #082a4d;
-  color: #eee;
-  padding-top: 5.15rem;
-  padding-left: 1.5rem;
-  height: 304mm;
+  background: #eee;
+  padding-top: 1.85rem;
+  padding-left: 1rem;
+  height: 269mm;
+}
+.sidebar > p > i {
+  font-size: 12px;
+  position: relative;
+  top: 3px;
+  margin-right: 0.25rem;
 }
 </style>

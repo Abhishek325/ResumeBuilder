@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     selected() {
-      return this.$store.state.resume_template;
+      return this.$store.state.resume.resume_template;
     },
   },
   data() {
@@ -33,7 +33,6 @@ export default {
   methods: {
     selectTemplate(template) {
       this.$store.commit("setResumeTemplate", template.component);
-      this.selected = template.component;
       this.$emit("selected", template.component);
     },
   },
@@ -42,7 +41,7 @@ export default {
 <style scoped>
 .row {
   height: 100vh;
-  padding-top: 2.5rem;
+  padding-top: 3rem;
   background: #7a8599;
 }
 img {

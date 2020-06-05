@@ -156,9 +156,6 @@ export default {
   visibility: hidden;
   cursor: pointer;
 }
-.link:hover {
-  background: #eee;
-}
 .card:hover .link {
   visibility: visible;
 }
@@ -173,12 +170,10 @@ export default {
   margin-right: 15px;
 }
 span.badge.new {
-  background-color: #eee;
   margin-top: 0.75rem;
   margin-right: 0.5rem;
   margin-left: 0;
   float: left;
-  color: #666;
 }
 .btn-flat {
   position: absolute;
@@ -203,5 +198,10 @@ h5 > i {
 }
 h5:hover > i {
   visibility: visible;
+}
+</style>
+<style>
+.link:hover {
+  background: rgba(0, 0, 0, 0.2);
 }
 </style>

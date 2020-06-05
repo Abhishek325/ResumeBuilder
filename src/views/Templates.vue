@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <div class="row">
+      <div class="col m12">
+        <h5>Templates</h5>
+      </div>
       <div
         class="col m6"
         v-for="(template, index) in templateList"
@@ -14,9 +17,19 @@
             <div class="card-content">
               <h5>{{ template.name }}</h5>
               <p>{{ template.description }}</p>
+              <br />
+              <small>Author : Abhishek</small>
             </div>
             <div class="card-action">
-              <small>Author : Abhishek</small>
+              <button
+                class="btn-flat btn-sm z-depth-3 waves-effect waves-default right"
+                @click="
+                  setResumeTemplate(template.name);
+                  $router.push('/resume/add');
+                "
+              >
+                Use template <i class="material-icons right">chevron_right</i>
+              </button>
             </div>
           </div>
         </div>
@@ -26,6 +39,7 @@
 </template>
 <script>
 import TemplatesConfig from "../model/templatesConfig.json";
+import { mapMutations } from "vuex";
 
 export default {
   data() {
@@ -36,6 +50,14 @@ export default {
   mounted() {
     this.templateList = TemplatesConfig;
   },
+  methods: {
+    ...mapMutations(["setResumeTemplate"]),
+  },
 };
 </script>
-<style scoped></style>
+<style scoped>
+button > i {
+  position: relative;
+  top: 0px;
+}
+</style>
