@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <div class="row" v-if="sectionSchema">
-      <CommonInput
-        v-for="field in sectionSchema.fields"
-        :key="field.id"
-        :field="field"
-        :sectionSchema="sectionSchema"
-        @input="onInput(field.id, $event)"
-      />
-    </div>
+  <div class="row" v-if="sectionSchema">
+    <CommonInput
+      v-for="field in sectionSchema.fields"
+      :key="field.id"
+      :field="field"
+      :sectionSchema="sectionSchema"
+      @input="onInput(field.id, $event)"
+    />
   </div>
 </template>
 <script>

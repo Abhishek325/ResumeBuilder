@@ -1,71 +1,81 @@
 <template>
   <div class="row main-content">
     <div class="col s12 m6" style="height:90vh;overflow-y:auto">
-      <router-link
-        to="/"
-        style="left:0"
-        class="waves-effect waves-default btn-flat floating-button hide-on-small-only"
-        ><i class="material-icons left">chevron_left</i>Back</router-link
-      >
-      <button
-        class="btn-flat waves-effect waves-default floating-button hide-on-small-only"
-        style="left:42.75%"
-        v-if="isFormDirty"
-        @click="save()"
-      >
-        <i class="material-icons right">check</i>Save
-      </button>
-      <span
-        class="new badge floating-button hide-on-small-only"
-        style="left:42.75%;top:6.4rem"
-        v-if="!isFormDirty"
-        data-badge-caption="All saved !"
-      ></span>
-      <button
-        class="btn-floating btn-large z-depth-3 waves-effect waves-light float-bottom hide-on-small-only"
-        v-if="resumeId"
-        @click="deleteResume()"
-      >
-        <i class="material-icons right">delete</i>
-      </button>
-      <div class="container">
-        <br />
-        <div
-          class="row"
-          v-for="(section, key) in formSchema.sections"
-          :key="key"
-        >
-          <div class="col s12" v-if="section.name || section.description">
-            <h6>{{ section.name }}</h6>
-            <small class="grey-text lighten-3">{{ section.description }}</small>
+      <ValidationObserver ref="observer">
+        <div slot-scope="{ invalid }">
+          <div id="actions">
+            <router-link
+              to="/"
+              style="left:0"
+              class="waves-effect waves-default btn-flat floating-button hide-on-small-only"
+              ><i class="material-icons left">chevron_left</i>Back</router-link
+            >
+            <button
+              class="btn-flat waves-effect waves-default floating-button hide-on-small-only"
+              style="left:42.75%"
+              :disabled="invalid"
+              v-if="isFormDirty"
+              @click="save()"
+            >
+              <i class="material-icons right">check</i>Save
+            </button>
+            <span
+              class="new badge floating-button hide-on-small-only"
+              style="left:42.75%;top:6.4rem"
+              v-if="!isFormDirty"
+              data-badge-caption="All saved !"
+            ></span>
+            <button
+              class="btn-floating btn-large z-depth-3 waves-effect waves-light float-bottom hide-on-small-only"
+              v-if="resumeId"
+              @click="deleteResume()"
+            >
+              <i class="material-icons right">delete</i>
+            </button>
           </div>
-          <CommonInput
-            :field="field"
-            :sectionSchema="section"
-            v-for="(field, key) in section.fields"
-            :key="key"
-            @input="onDirty()"
-          />
-          <!-- Added records to be listed -->
-          <MultiRecordList
-            v-if="section.isMultiRecord"
-            :section="section"
-            @remove="onDirty()"
-            @update="onDirty"
-            @resequence="onDirty()"
-          />
+          <div class="container">
+            <br />
+            <div
+              class="row"
+              v-for="(section, key) in formSchema.sections"
+              :key="key"
+            >
+              <div class="col s12" v-if="section.name || section.description">
+                <h6>{{ section.name }}</h6>
+                <small class="grey-text lighten-3">{{
+                  section.description
+                }}</small>
+              </div>
+              <CommonInput
+                :field="field"
+                :sectionSchema="section"
+                v-for="(field, key) in section.fields"
+                :key="key"
+                @input="onDirty()"
+              />
+              <!-- Added records to be listed -->
+              <MultiRecordList
+                v-if="section.isMultiRecord"
+                :section="section"
+                @remove="onDirty()"
+                @update="onDirty"
+                @resequence="onDirty()"
+              />
+            </div>
+            <div class="col s12 center-align">
+              <button
+                class="btn waves-effect waves-light"
+                v-if="isFormDirty"
+                :disabled="invalid"
+                @click="save()"
+              >
+                Save
+              </button>
+            </div>
+            <br />
+          </div>
         </div>
-        <div class="col s12 center-align">
-          <button
-            class="btn waves-effect waves-light"
-            v-if="isFormDirty"
-            @click="save()"
-          >
-            Save
-          </button>
-        </div>
-        <br />
-      </div>
+      </ValidationObserver>
     </div>
     <div
       id="resumeViewContainer"
@@ -89,12 +99,14 @@ import CommonInput from "../components/core/CommonInput";
 import ResumePreview from "../components/core/ResumePreview";
 import MultiRecordList from "../components/core/MutiRecord/MultiRecordList";
 import STORAGE_SERVICE from "../services/persistence";
+import { ValidationObserver } from "vee-validate";
 
 export default {
   components: {
     CommonInput,
     ResumePreview,
     MultiRecordList,
+    ValidationObserver,
   },
   data() {
     return {

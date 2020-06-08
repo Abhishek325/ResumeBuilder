@@ -11,7 +11,7 @@
                     "id": "job_title",
                     "label": "Job Title",
                     "type": "form-text",
-                    "validations": "",
+                    "validations": "required|alpha_spaces",
                     "class": "",
                     "col": "m6"
                 },
@@ -27,7 +27,7 @@
                     "id": "first_name",
                     "label": "First Name",
                     "type": "form-text",
-                    "validations": "alpha",
+                    "validations": "required|alpha_spaces",
                     "class": "",
                     "col": "m6"
                 },
@@ -35,7 +35,7 @@
                     "id": "last_name",
                     "label": "Last Name",
                     "type": "form-text",
-                    "validations": "alpha",
+                    "validations": "required|alpha_spaces",
                     "class": "",
                     "col": "m6"
                 },
@@ -67,7 +67,7 @@
                     "id": "pd_city",
                     "label": "City",
                     "type": "form-text",
-                    "validations": "alpha",
+                    "validations": "alpha_spaces",
                     "class": "",
                     "col": "m6"
                 }
@@ -98,35 +98,39 @@
                 {
                     "id": "employment_history_job_title",
                     "label": "Job Title",
-                    "type": "form-text",
+                    "type": "form-group-text",
+                    "validations": "required",
                     "class": "",
                     "col": "m6"
                 },
                 {
                     "id": "employer",
                     "label": "Employer",
-                    "type": "form-text",
+                    "type": "form-group-text",
+                    "validations": "required",
                     "class": "",
                     "col": "m6"
                 },
                 {
                     "id": "start_date",
                     "label": "Start date",
-                    "type": "form-text",
+                    "type": "form-group-text",
+                    "validations": "required",
                     "class": "",
                     "col": "m6"
                 },
                 {
                     "id": "to_date",
                     "label": "End date",
-                    "type": "form-text",
+                    "type": "form-group-text",
                     "class": "",
                     "col": "m6"
                 },
                 {
                     "id": "city",
                     "label": "City",
-                    "type": "form-text",
+                    "type": "form-group-text",
+                    "validations": "required",
                     "class": "",
                     "col": "m6"
                 },
@@ -135,6 +139,7 @@
                     "label": "",
                     "placeholder": "Description",
                     "type": "form-text-area",
+                    "validations": "required",
                     "class": "",
                     "col": "m12"
                 },
@@ -157,35 +162,40 @@
                 {
                     "id": "school",
                     "label": "School",
-                    "type": "form-text",
+                    "type": "form-group-text",
+                    "validations": "required",
                     "class": "",
                     "col": "m6"
                 },
                 {
                     "id": "degree",
                     "label": "Degree",
-                    "type": "form-text",
+                    "type": "form-group-text",
+                    "validations": "required",
                     "class": "",
                     "col": "m6"
                 },
                 {
                     "id": "school_start_date",
                     "label": "Start date",
-                    "type": "form-text",
+                    "type": "form-group-text",
+                    "validations": "required",
                     "class": "",
                     "col": "m6"
                 },
                 {
                     "id": "school_end_date",
                     "label": "End date",
-                    "type": "form-text",
+                    "type": "form-group-text",
+                    "validations": "required",
                     "class": "",
                     "col": "m6"
                 },
                 {
                     "id": "school_city",
                     "label": "City",
-                    "type": "form-text",
+                    "type": "form-group-text",
+                    "validations": "required",
                     "class": "",
                     "col": "m6"
                 },
@@ -194,6 +204,7 @@
                     "label": "",
                     "placeholder": "Description",
                     "type": "form-text-area",
+                    "validations": "required",
                     "class": "",
                     "col": "m12"
                 },
@@ -216,7 +227,7 @@
                 {
                     "id": "skill",
                     "label": "Skill name",
-                    "type": "form-text",
+                    "type": "form-group-text",
                     "class": "",
                     "col": "m9"
                 },
@@ -239,14 +250,14 @@
                 {
                     "id": "label",
                     "label": "Label",
-                    "type": "form-text",
+                    "type": "form-group-text",
                     "class": "",
                     "col": "m4"
                 },
                 {
                     "id": "link",
                     "label": "Link",
-                    "type": "form-text",
+                    "type": "form-group-text",
                     "validations": "url",
                     "class": "",
                     "col": "m6"

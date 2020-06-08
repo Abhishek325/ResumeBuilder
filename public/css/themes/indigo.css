@@ -21,6 +21,9 @@ nav {
   color: #aaa;
 }
 
+.add-new {
+  background: #ddd;
+}
 
 blockquote {
   border-left-color: #4a148c;

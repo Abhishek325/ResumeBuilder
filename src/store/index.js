@@ -42,16 +42,10 @@ export default new Vuex.Store({
         // Subsequent value
         else state.resume[payload.sectionSchema.id].push(...data);
       } else {
-        var valid = true;
         // Mutli valued fields e.g. Education details:
         fields.forEach((f) => {
-          valid = valid && state.resume[f];
           data[f] = state.resume[f];
         });
-        if (!valid) {
-          alert("Please fill in all the fields");
-          return;
-        }
         // First value
         if ((state.resume[payload.sectionSchema.id] || []).length === 0)
           Vue.set(state.resume, payload.sectionSchema.id, [{ ...data }]);

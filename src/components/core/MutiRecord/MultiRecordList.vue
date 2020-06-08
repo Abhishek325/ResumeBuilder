@@ -10,8 +10,13 @@
         <div class="col s12">
           {{ item.employment_history_job_title }} at {{ item.employer }}
         </div>
-        <small class="grey-text lighten-2">{{ item.start_date }}</small>
+        <small class="grey-text lighten-2">
+          <span v-if="item.start_date"> {{ item.start_date }} </span>
+          <span v-if="item.start_date && item.to_date"> - </span>
+          <span v-if="item.to_date"> {{ item.to_date }} </span>
+        </small>
         <MultiRecordActions
+          :sectionId="sectionId"
           :index="index"
           :editIndex="editIndex"
           @delete="removeMultiRecord(section, index)"
@@ -34,7 +39,13 @@
         class="collection-item"
       >
         <div class="col s12">{{ item.degree }} at {{ item.school }}</div>
-        <small class="grey-text lighten-2">{{ item.school_start_date }}</small>
+        <small class="grey-text lighten-2">
+          <span v-if="item.school_start_date">
+            {{ item.school_start_date }}
+          </span>
+          <span v-if="item.school_start_date && item.school_end_date"> - </span>
+          <span v-if="item.school_end_date"> {{ item.school_end_date }} </span>
+        </small>
         <MultiRecordActions
           :index="index"
           :editIndex="editIndex"

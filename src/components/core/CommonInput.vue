@@ -1,13 +1,19 @@
 <template>
-  <component
-    :is="field.type"
-    :field="field"
-    :sectionSchema="sectionSchema"
-    @input="onInput($event)"
-  ></component>
+  <ValidationObserver ref="observer">
+    <component
+      :is="field.type"
+      :field="field"
+      :sectionSchema="sectionSchema"
+      @input="onInput($event)"
+    ></component>
+  </ValidationObserver>
 </template>
 <script>
+import { ValidationObserver } from "vee-validate";
 export default {
+  components: {
+    ValidationObserver,
+  },
   props: {
     field: Object,
     sectionSchema: Object,
