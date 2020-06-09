@@ -27,17 +27,18 @@ export default {
     };
   },
   mounted() {
-    this.section.fields = this.section.fields.filter(
-      (f) => f.type !== "form-action"
-    );
     this.getSectionDataByIndex();
   },
   methods: {
     getSectionDataByIndex() {
       this.formData = this.$store.state.resume[this.section.id][this.index];
-      this.sectionSchema = Object.assign({}, this.section);
+      this.sectionSchema = JSON.parse(JSON.stringify(this.section)); //Deep clone
+      this.sectionSchema.fields = this.sectionSchema.fields.filter(
+        (f) => f.type !== "form-action"
+      );
       this.sectionSchema.fields.forEach((f) => {
         f.value = this.formData[f.id];
+        f.visible = true;
       });
     },
     onInput(fieldId, value) {

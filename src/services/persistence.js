@@ -25,7 +25,7 @@ const STORAGE_SERVICE = {
     } else {
       resume.id = uuidv4();
       resume.resume_title = resume.job_title; // Name resume by title
-      resume.resume_template = resume.resume_template || "NewYork";
+      resume.resume_template = resume.resume_template || "Sydney";
       resume.created_at = new Date();
       resumeList.push(resume);
     }
