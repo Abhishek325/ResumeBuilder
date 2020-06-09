@@ -30,6 +30,7 @@
               <li>Re-order skills and profile links</li>
               <li>Switch themes - <b>Dark mode</b> included!</li>
               <li>Duplicate an existing resume for last minute tweaks!</li>
+              <li>Just in time validations!</li>
             </ol>
           </div>
           <div class="col m12">

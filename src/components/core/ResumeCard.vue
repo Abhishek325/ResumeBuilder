@@ -3,7 +3,12 @@
     <div class="card horizontal">
       <div class="card-stacked">
         <div class="card-content">
-          <h5 class="truncate" :title="resume.resume_title" v-if="!editMode">
+          <h5
+            class="truncate"
+            :title="resume.resume_title"
+            @click="editMode = true"
+            v-if="!editMode"
+          >
             {{ resume.resume_title }}
             <i class="material-icons" @click="editMode = true">mode_edit</i>
           </h5>
@@ -16,6 +21,7 @@
               <input
                 type="text"
                 @keydown.esc="editMode = false"
+                @blur="editMode = false"
                 v-model="resume.resume_title"
               />
               <label class="active">Resume Name</label>

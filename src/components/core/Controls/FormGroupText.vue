@@ -1,5 +1,8 @@
 <template>
-  <div :class="`input-field col s12 ${field.col} ${field.class}`">
+  <div
+    :class="`input-field col s12 ${field.col} ${field.class}`"
+    :style="{ display: display }"
+  >
     <input
       type="text"
       :id="field.id"
@@ -37,13 +40,26 @@ export default {
       value: this.field.value,
     };
   },
+  computed: {
+    display() {
+      return this.field.visible == false ? "none" : "block";
+    },
+  },
   async mounted() {
     EventBus.$on("onMultiRecordAdded", (id) => {
+      // Reset all validators
       if (this.sectionSchema.id === id) this.value = "";
       this.$validator.reset();
     });
     EventBus.$on("showValidationErrors", (id) => {
+      // Trigger validation
       if (this.sectionSchema.id === id) this.validate();
+    });
+    EventBus.$on("onFieldAction", (action) => {
+      // Set field
+      if (action.fields.includes(this.field.id)) {
+        this.field[action.prop] = action.value;
+      }
     });
   },
   methods: {

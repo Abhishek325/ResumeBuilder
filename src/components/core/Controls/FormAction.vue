@@ -1,6 +1,18 @@
 <template>
-  <div :class="`input-field col s12 ${field.col} ${field.class}`">
+  <div
+    :class="`input-field col s12 ${field.col} ${field.class}`"
+    :style="{ display: display }"
+  >
     <a
+      v-if="field.actionType === 'show'"
+      class="waves-effect btn-flat show-btn add-new"
+      @click="onShow()"
+    >
+      <i class="material-icons">add </i>
+      {{ field.label }}</a
+    >
+    <a
+      v-else
       class="waves-effect center-align btn-flat add-new"
       :disabled="isInvalid"
       @click="addMutliRecord()"
@@ -25,6 +37,9 @@ export default {
         ).length > 0
       );
     },
+    display() {
+      return this.field.visible == false ? "none" : "block";
+    },
   },
   methods: {
     validate() {
@@ -36,11 +51,33 @@ export default {
       });
       EventBus.$emit("onMultiRecordAdded", this.sectionSchema.id);
     },
+    onShow() {
+      this.field.visible = false;
+      EventBus.$emit("onFieldAction", this.field.action);
+    },
+  },
+  mounted() {
+    EventBus.$on("onFieldAction", (action) => {
+      if (action.fields.includes(this.field.id)) {
+        this.field[action.prop] = action.value;
+      }
+    });
   },
 };
 </script>
 <style scoped>
 .btn-flat {
   margin-bottom: 0.4rem;
+}
+.show-btn {
+  padding-bottom: 3rem;
+  background: transparent;
+  text-transform: capitalize;
+  font-weight: 600;
+  width: 100%;
+}
+.show-btn > i {
+  position: relative;
+  top: 5px;
 }
 </style>

@@ -1,5 +1,8 @@
 <template>
-  <div :class="`input-field col s12 ${field.col} ${field.class}`">
+  <div
+    :class="`input-field col s12 ${field.col} ${field.class}`"
+    :style="{ display: display }"
+  >
     <vue-editor
       :id="field.id"
       :editorToolbar="customToolbar"
@@ -24,6 +27,11 @@ export default {
     field: Object,
     sectionSchema: Object,
   },
+  computed: {
+    display() {
+      return this.field.visible == false ? "none" : "block";
+    },
+  },
   data() {
     return {
       value: this.field.value,
@@ -38,6 +46,11 @@ export default {
   mounted() {
     EventBus.$on("onMultiRecordAdded", (id) => {
       if (this.sectionSchema.id === id) this.value = "";
+    });
+    EventBus.$on("onFieldAction", (action) => {
+      if (action.fields.includes(this.field.id)) {
+        this.field[action.prop] = action.value;
+      }
     });
   },
 };
