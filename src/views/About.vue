@@ -37,19 +37,27 @@
             <blockquote>
               An Open-Source resume maker to build your profile! No more "Get
               premium" popups for fancy templates, no more "Create account to
-              get started", Just fill and save!
+              get started", Just fill and save! Built with <code>vue.js</code> ,
+              <code>materializecss</code> framework!<br />
+              Click
+              <a
+                href="https://github.com/Abhishek325/ResumeBuilder"
+                target="_blank"
+                rel="noopener noreferrer"
+                >here</a
+              >
+              to view the Github repository. Feel free to Fork or
+              <a
+                href="https://github.com/Abhishek325/ResumeBuilder/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                >report
+              </a>
+              an issue!
             </blockquote>
-          </div>
-          <div class="col m12">
-            <a
-              href="https://github.com/Abhishek325/ResumeBuilder"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Github repository <i class="material-icons">open_in_new</i></a
-            >
-            <p style="margin-top:0.75rem">
-              Built with <code>vue.js</code> ,
-              <code>materializecss</code> framework!
+            <p class="grey-text card-title" style="font-size:12px;">
+              Not a Github user but got a bug/feature request to share, write to
+              <u>iamtheking1abhishek@gmail.com</u>
             </p>
           </div>
         </div>

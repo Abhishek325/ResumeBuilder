@@ -21,6 +21,7 @@
               <input
                 type="text"
                 @keydown.esc="editMode = false"
+                @keydown.enter="updateResumeTitle()"
                 @blur="editMode = false"
                 v-model="resume.resume_title"
               />
@@ -58,9 +59,11 @@
           </p>
         </div>
         <div class="card-action" style="border-top: none;">
-          <span class="icon-placeholder right"></span>
-          <span class="icon-placeholder right"></span>
-          <span class="icon-placeholder right"></span>
+          <ActionIconPlaceholder
+            v-for="n in 3"
+            :key="n"
+            class="icon-placeholder right"
+          />
           <a class="link right circle waves-effect" @click="deleteResume()">
             <i class="material-icons">delete</i>
           </a>
@@ -184,12 +187,6 @@ span.badge.new {
 .btn-flat {
   position: absolute;
   right: 0;
-}
-.icon-placeholder:before {
-  content: "\25CF";
-  font-size: 1.5rem;
-  color: #ccc;
-  margin-right: 30px;
 }
 .card:hover .icon-placeholder {
   display: none;

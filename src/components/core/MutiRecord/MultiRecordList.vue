@@ -2,65 +2,78 @@
   <div class="col s12">
     <!-- Employment history -->
     <ul class="collection" v-if="sectionId === 5 && listItems.length > 0">
-      <li
-        v-for="(item, index) in listItems"
-        :key="index"
-        class="collection-item"
-      >
-        <div class="col s12">
-          {{ item.employment_history_job_title }} at {{ item.employer }}
-        </div>
-        <small class="grey-text lighten-2">
-          <span v-if="item.start_date"> {{ item.start_date }} </span>
-          <span v-if="item.start_date && item.to_date"> - </span>
-          <span v-if="item.to_date"> {{ item.to_date }} </span>
-        </small>
-        <MultiRecordActions
-          :sectionId="sectionId"
-          :index="index"
-          :editIndex="editIndex"
-          @delete="removeMultiRecord(section, index)"
-          @edit="editMultiRecord(index)"
-          @close="onClose()"
-        />
-        <!-- Render the edit section -->
-        <MultiRecordSection
-          :index="index"
-          :section="section"
-          v-if="editIndex === index"
-        />
-      </li>
+      <draggable v-model="listItems" draggable=".item">
+        <li
+          v-for="(item, index) in listItems"
+          :key="index"
+          class="item collection-item avatar"
+          @drag="onDrag()"
+        >
+          <i class="material-icons circle">{{
+            listItems.length > 1 ? "drag_handle" : "work"
+          }}</i>
+          <div class="col s12">
+            {{ item.employment_history_job_title }} at {{ item.employer }}
+          </div>
+          <small class="grey-text lighten-2">
+            <span v-if="item.start_date">{{ item.start_date }}</span>
+            <span v-if="item.start_date && item.to_date">-</span>
+            <span v-if="item.to_date">{{ item.to_date }}</span>
+          </small>
+          <MultiRecordActions
+            class="icon-placeholder"
+            :sectionId="sectionId"
+            :index="index"
+            :editIndex="editIndex"
+            @delete="removeMultiRecord(section, index)"
+            @edit="editMultiRecord(index)"
+            @close="onClose()"
+          />
+          <!-- Render the edit section -->
+          <MultiRecordSection
+            :index="index"
+            :section="section"
+            v-if="editIndex === index"
+          />
+        </li>
+      </draggable>
     </ul>
     <!-- Education multi records -->
     <ul class="collection" v-if="sectionId === 6 && listItems.length > 0">
-      <li
-        v-for="(item, index) in listItems"
-        :key="index"
-        class="collection-item"
-      >
-        <div class="col s12">{{ item.degree }} at {{ item.school }}</div>
-        <small class="grey-text lighten-2">
-          <span v-if="item.school_start_date">
-            {{ item.school_start_date }}
-          </span>
-          <span v-if="item.school_start_date && item.school_end_date"> - </span>
-          <span v-if="item.school_end_date"> {{ item.school_end_date }} </span>
-        </small>
-        <MultiRecordActions
-          :index="index"
-          :editIndex="editIndex"
-          :sectionName="section.name"
-          @delete="removeMultiRecord(section, index)"
-          @edit="editMultiRecord(index)"
-          @close="onClose()"
-        />
-        <!-- Render the edit section -->
-        <MultiRecordSection
-          :index="index"
-          :section="section"
-          v-if="editIndex === index"
-        />
-      </li>
+      <draggable v-model="listItems" draggable=".item">
+        <li
+          v-for="(item, index) in listItems"
+          :key="index"
+          class="item collection-item avatar"
+          @drag="onDrag()"
+        >
+          <i class="material-icons circle">{{
+            listItems.length > 1 ? "drag-handle" : "school"
+          }}</i>
+          <div class="col s12">{{ item.degree }} at {{ item.school }}</div>
+          <small class="grey-text lighten-2">
+            <span v-if="item.school_start_date">{{
+              item.school_start_date
+            }}</span>
+            <span v-if="item.school_start_date && item.school_end_date">-</span>
+            <span v-if="item.school_end_date">{{ item.school_end_date }}</span>
+          </small>
+          <MultiRecordActions
+            :index="index"
+            :editIndex="editIndex"
+            :sectionName="section.name"
+            @delete="removeMultiRecord(section, index)"
+            @edit="editMultiRecord(index)"
+            @close="onClose()"
+          />
+          <!-- Render the edit section -->
+          <MultiRecordSection
+            :index="index"
+            :section="section"
+            v-if="editIndex === index"
+          />
+        </li>
+      </draggable>
     </ul>
     <!-- Skills' multi records -->
     <div v-if="sectionId === 7">
@@ -89,9 +102,7 @@
           :key="index"
           @drag="onDrag()"
         >
-          <a :href="item.link" target="_blank">
-            {{ item.label }}
-          </a>
+          <a :href="item.link" target="_blank">{{ item.label }}</a>
           <i class="material-icons" @click="removeMultiRecord(section, index)"
             >close</i
           >
@@ -189,5 +200,15 @@ span.badge {
   line-height: 32px;
   padding-left: 8px;
   color: #aaa;
+}
+li.item.collection-item.avatar {
+  min-height: auto;
+  padding-left: 52px;
+}
+li.item.collection-item.avatar > i.circle {
+  background: none;
+  color: #9e9e9e;
+  cursor: grab;
+  left: 5px;
 }
 </style>

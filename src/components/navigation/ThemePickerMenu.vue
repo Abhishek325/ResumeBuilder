@@ -38,7 +38,7 @@ export default {
       colorOptions: [
         {
           name: "indigo",
-          color: "#4a148c",
+          color: "#3f51b5",
         },
         {
           name: "pink",

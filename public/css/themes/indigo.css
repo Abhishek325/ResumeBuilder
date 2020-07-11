@@ -3,7 +3,7 @@
 .btn-floating,
 .btn-small,
 nav {
-  background-color: #4a148c;
+  background-color: #3f51b5;
 }
 
 .btn:hover,
@@ -14,7 +14,7 @@ nav {
 .btn-large:focus,
 .btn-small:focus,
 .btn-floating:focus {
-  background-color: #6a1b9a;
+  background-color: #3949a3;
 }
 
 .footer {
@@ -26,7 +26,7 @@ nav {
 }
 
 blockquote {
-  border-left-color: #4a148c;
+  border-left-color: #3f51b5;
 }
 
 body,
