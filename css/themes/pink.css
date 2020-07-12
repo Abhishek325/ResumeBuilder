@@ -1,0 +1,44 @@
+.btn,
+.btn-large,
+.btn-floating,
+.btn-small,
+nav {
+  background-color: #e91e63;
+}
+
+.btn:hover,
+.btn-large:hover,
+.btn-small:hover,
+.btn-floating:hover,
+.btn:focus,
+.btn-large:focus,
+.btn-small:focus,
+.btn-floating:focus {
+  background-color: #ef3876;
+}
+
+.footer {
+  color: #aaa;
+}
+
+.add-new {
+  background: #ddd;
+}
+
+blockquote {
+  border-left-color: #e91e63;
+}
+
+a {
+  color: #f48fb1;
+}
+
+body,
+.collection {
+  background: #f1f1f1;
+}
+
+span.badge.new {
+  background-color: #eee;
+  color: #666;
+}

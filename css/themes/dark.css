@@ -1,0 +1,85 @@
+.btn,
+.btn-large,
+.btn-small,
+.btn-flat:hover,
+.card,
+.card,
+.chip,
+ul.collection,
+.collection .collection-item,
+nav {
+  background-color: #1f1f1f;
+}
+
+h5,
+h6,
+small,
+input,
+.card-content,
+.btn-flat,
+.chip,
+.ql-editor {
+  color: #fff;
+}
+
+.footer {
+  color: #666;
+}
+
+.add-new {
+  background: #1f1f1f;
+}
+
+p :not(p.employment-summary),
+li :not(p.employment-summary) {
+  color: #fff;
+}
+
+.btn,
+.btn-large,
+.btn-small,
+.btn,
+.btn-large,
+.btn-small,
+.btn-floating {
+  background: #bb86fc;
+  color: #343434;
+}
+
+.btn:hover,
+.btn-large:hover,
+.btn-small:hover,
+.btn-floating:hover,
+.btn:focus,
+.btn-large:focus,
+.btn-small:focus,
+.btn-floating:focus {
+  background-color: #b388ff;
+}
+
+blockquote {
+  border-left-color: #bb86fc;
+}
+
+a {
+  color: #bb86fc;
+}
+
+::placeholder {
+  color: #ddd;
+}
+
+body,
+span.badge.new,
+#resumeViewContainer {
+  background: #121212 !important;
+}
+
+.collection {
+  border: none;
+}
+
+.collection .collection-item {
+  border: none;
+  color: #fff;
+}
