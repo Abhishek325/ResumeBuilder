@@ -35,33 +35,37 @@
           </div>
           <div class="container">
             <br />
-            <div
-              class="row"
-              v-for="(section, key) in formSchema.sections"
-              :key="key"
-            >
-              <div class="col s12" v-if="section.name || section.description">
-                <h6>{{ section.name }}</h6>
-                <small class="grey-text lighten-3">{{
-                  section.description
-                }}</small>
-              </div>
-              <CommonInput
-                :field="field"
-                :sectionSchema="section"
-                v-for="(field, key) in section.fields"
+            <draggable v-model="sectionList" draggable=".item">
+              <div
+                class="row item"
+                v-for="(section, key) in sectionList"
                 :key="key"
-                @input="onDirty()"
-              />
-              <!-- Added records to be listed -->
-              <MultiRecordList
-                v-if="section.isMultiRecord"
-                :section="section"
-                @remove="onDirty()"
-                @update="onDirty"
-                @resequence="onDirty()"
-              />
-            </div>
+              >
+                <div class="col s12" v-if="section.name || section.description">
+                  <h6>
+                    {{ section.name }}
+                  </h6>
+                  <small class="grey-text lighten-3">{{
+                    section.description
+                  }}</small>
+                </div>
+                <CommonInput
+                  :field="field"
+                  :sectionSchema="section"
+                  v-for="(field, key) in section.fields"
+                  :key="key"
+                  @input="onDirty()"
+                />
+                <!-- Added records to be listed -->
+                <MultiRecordList
+                  v-if="section.isMultiRecord"
+                  :section="section"
+                  @remove="onDirty()"
+                  @update="onDirty"
+                  @resequence="onDirty()"
+                />
+              </div>
+            </draggable>
             <div class="col s12 center-align">
               <button
                 class="btn waves-effect waves-light"
@@ -100,9 +104,12 @@ import ResumePreview from "../components/core/ResumePreview";
 import MultiRecordList from "../components/core/MutiRecord/MultiRecordList";
 import STORAGE_SERVICE from "../services/persistence";
 import { ValidationObserver } from "vee-validate";
+import { orderBy } from "lodash";
+import draggable from "vuedraggable";
 
 export default {
   components: {
+    draggable,
     CommonInput,
     ResumePreview,
     MultiRecordList,
@@ -119,6 +126,19 @@ export default {
     resumeId() {
       return (this.$route.params || {}).id;
     },
+    sectionList: {
+      get() {
+        return this.formSchema.sections;
+      },
+      set(val) {
+        this.formSchema.sections = val;
+        let schemaOrder = [];
+        for (let index = 0; index < this.formSchema.sections.length; index++) {
+          schemaOrder[this.formSchema.sections[index]["id"]] = index;
+        }
+        STORAGE_SERVICE.saveSchema(schemaOrder);
+      },
+    },
   },
   mounted() {
     document.body.style.overflowY = "hidden";
@@ -130,11 +150,14 @@ export default {
         return;
       }
       this.$store.commit("setStoreValues", formData);
+      const schemaOrder = STORAGE_SERVICE.getSchemaOrder();
       this.formSchema.sections.forEach((s) => {
+        s.seq = schemaOrder ? schemaOrder[s.id] : 0;
         s.fields.forEach((f) => {
           f.value = formData[f.id];
         });
       });
+      this.formSchema.sections = orderBy(this.formSchema.sections, ["seq"]);
     } else {
       this.$store.commit("clearStoreValues");
       this.formSchema.sections.forEach((s) => {
@@ -181,6 +204,7 @@ export default {
 }
 h6 {
   font-weight: 600;
+  cursor: move;
 }
 .pullup {
   margin-top: 0.3rem;
@@ -197,5 +221,15 @@ h6 {
 }
 body {
   overflow-y: hidden;
+}
+.item:active {
+  cursor: move;
+  padding: 0.45em 0.5rem;
+  border-radius: 8px;
+  background: #f7f7f7;
+  transition-delay: 0.1s;
+  transition-duration: 0.25s;
+  box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
 }
 </style>

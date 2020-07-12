@@ -42,5 +42,12 @@ const STORAGE_SERVICE = {
   saveTheme(theme) {
     localStorage.setItem("theme", JSON.stringify(theme));
   },
+  //Form schema
+  getSchemaOrder() {
+    return JSON.parse(localStorage.getItem("schemaOrder"));
+  },
+  saveSchema(schema) {
+    localStorage.setItem("schemaOrder", JSON.stringify(schema));
+  },
 };
 export default STORAGE_SERVICE;

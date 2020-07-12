@@ -8,7 +8,7 @@
     <div class="navbar-fixed">
       <nav>
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo truncate center">Resume Builder</a>
+          <p class="brand-logo truncate center">Resume Builder</p>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"
             ><i class="material-icons">menu</i></a
           >
@@ -80,6 +80,7 @@ export default {
 <style scoped>
 .brand-logo {
   font-weight: 300;
+  margin-top: 0;
 }
 .router-link-exact-active {
   background-color: rgba(0, 0, 0, 0.1);

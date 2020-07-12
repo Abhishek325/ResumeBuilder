@@ -26,13 +26,13 @@
         <li>
           <button
             class="btn-floating waves-effect waves-light"
-            title="Toggle template"
+            title="Choose template"
             @click="
               onFit();
               templateView = !templateView;
             "
           >
-            <i class="material-icons">gradient</i>
+            <i class="material-icons">dashboard</i>
           </button>
         </li>
         <li>
