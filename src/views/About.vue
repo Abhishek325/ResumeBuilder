@@ -56,8 +56,7 @@
               an issue!
             </blockquote>
             <p class="grey-text card-title" style="font-size:12px;">
-              Not a Github user but got a bug/feature request to share, write to
-              <u>iamtheking1abhishek@gmail.com</u>
+              Open for community use and contributions!
             </p>
           </div>
         </div>
